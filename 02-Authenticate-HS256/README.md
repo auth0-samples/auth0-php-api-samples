@@ -1,8 +1,38 @@
-# Auth0 PHP API Samples
+# PHP Authentication for HS256-Signed Tokens
 
-These samples demonstrate how to create an API with PHP which authenticates incoming requests. The request authenitcation is done by verifying the signature and claims in a JSON Web Token (JWT) signed by Auth0.
+This sample demonstrates how to protect endpoints in a PHP API by verifing an incoming JWT signed by Auth0. The token must be signed with the HS256 algorithm and must be verified against the signing secret. 
 
-These samples do not demonstrate how to sign a JWT but rather assume that a user has already been authenticated by Auth0 and holds an access token for API access. For information on how to use Auth0 to authenticate users, see [the docs](https://auth0.com/docs).
+## Getting Started
+
+If you haven't already done so, [sign up](https://auth0.com) for your free Auth0 account and create a new client in the [dashboard](https://manage.auth0.com).
+
+Clone the repo or download it from the PHP API quickstart page in Auth0's documentation.
+
+## Setup the `.env` File
+
+If you download this sample from the PHP API quickstart page, a `.env` file will come pre-populated with your API identifier and Auth0 domain. If you clone the repo from GitHub, you will need to rename `.env.example` to `.env` and provide these values manually.
+
+## Install the Dependencies and Start the API
+
+```bash
+composer install
+php -S localhost:3001
+```
+
+The API will be served at `http://localhost:3001`.
+
+## Endpoints
+
+The sample includes these endpoints:
+
+**GET** /api/public/ping
+* An unprotected endpoint which returns a message on success. Does not require a valid JWT access token.
+
+**GET** /api/private/ping
+* A protected endpoint which returns a message on success. Requires a valid JWT access token.
+
+**GET** /api/private/admin/ping
+* A protected endpoint which returns a message on success **only** if the `access_token` has a `scope` of `read:messages`. Requires a valid JWT access token.
 
 ## What is Auth0?
 

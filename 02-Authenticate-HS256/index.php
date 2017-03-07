@@ -58,9 +58,8 @@
 
   sendCorsHeaders();
 
-
   // Check JWT on /secured routes
-  $router->before('GET', '/secured/.*', function() use ($app) {
+  $router->before('GET', '/api/private/.*', function() use ($app) {
 
     $requestHeaders = apache_request_headers();
 
@@ -85,18 +84,22 @@
     }
     catch(\Auth0\SDK\Exception\CoreException $e) {
       header('HTTP/1.0 401 Unauthorized');
-      echo "Invalid token";
+      echo $e;
       exit();
     }
 
   });
 
-  $router->get('/ping', function() use ($app){
+  $router->get('/api/public/ping', function() use ($app){
       echo json_encode($app->publicPing());
   });
 
-  $router->get('/secured/ping', function() use ($app){
+  $router->get('/api/private/ping', function() use ($app){
       echo json_encode($app->privatePing());
+  });
+
+  $router->get('/api/private/admin/ping', function() use ($app){
+      echo json_encode($app->adminPing());
   });
 
   $router->set404(function() {
