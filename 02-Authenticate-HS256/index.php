@@ -77,7 +77,8 @@
       exit();
     }
 
-    $token = str_replace('bearer ', '', strtolower($authorizationHeader));
+    $authorizationHeader = str_replace('bearer ', '', $authorizationHeader);
+    $token = str_replace('Bearer ', '', $authorizationHeader);
 
     try {
         $app->setCurrentToken($token);
