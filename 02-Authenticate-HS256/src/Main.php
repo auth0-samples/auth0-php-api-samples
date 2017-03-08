@@ -41,11 +41,4 @@ class Main {
         );
     }
 
-    public function adminPing() {
-        return array(
-            "status" => "ok",
-            "message" => "Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this."
-        );
-    }
-
 }

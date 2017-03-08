@@ -31,9 +31,6 @@ The sample includes these endpoints:
 **GET** /api/private
 * A protected endpoint which returns a message on success. Requires a valid JWT access token.
 
-**GET** /api/private/admin/ping
-* A protected endpoint which returns a message on success **only** if the `access_token` has a `scope` of `read:messages`. Requires a valid JWT access token.
-
 ## What is Auth0?
 
 Auth0 helps you to:

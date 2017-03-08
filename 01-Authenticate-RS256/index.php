@@ -99,10 +99,6 @@
       echo json_encode($app->privatePing());
   });
 
-  $router->get('/api/private/admin/ping', function() use ($app){
-      echo json_encode($app->adminPing());
-  });
-
   $router->set404(function() {
     header('HTTP/1.1 404 Not Found');
     echo "Page not found";
