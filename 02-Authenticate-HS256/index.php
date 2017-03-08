@@ -63,13 +63,13 @@
 
     $requestHeaders = apache_request_headers();
 
-    if (!isset($requestHeaders['Authorization'])) {
+    if (!isset($requestHeaders['authorization']) && !isset($requestHeaders['Authorization'])) {
         header('HTTP/1.0 401 Unauthorized');
         echo "No token provided.";
         exit();
     }
 
-    $authorizationHeader = $requestHeaders['Authorization'];
+    $authorizationHeader = isset($requestHeaders['authorization']) ? $requestHeaders['authorization'] : $requestHeaders['Authorization'];
 
     if ($authorizationHeader == null) {
       header('HTTP/1.0 401 Unauthorized');
@@ -77,7 +77,7 @@
       exit();
     }
 
-    $token = str_replace('Bearer ', '', $authorizationHeader);
+    $token = str_replace('bearer ', '', strtolower($authorizationHeader));
 
     try {
         $app->setCurrentToken($token);
