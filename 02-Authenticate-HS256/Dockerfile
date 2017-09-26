@@ -1,7 +1,16 @@
-FROM tutum/apache-php
-RUN apt-get update && apt-get install -yq git && rm -rf /var/lib/apt/lists/*
-RUN rm -fr /app
-ADD . /app
-#RUN a2enmod rewrite
-RUN composer self-update
-RUN composer install
+FROM php:7.2-rc-alpine
+
+WORKDIR /home/app
+
+ADD composer.json /home/app
+
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN php composer-setup.php
+RUN php -r "unlink('composer-setup.php');"
+RUN php composer.phar --no-plugins --no-scripts install
+
+ADD . /home/app
+
+CMD php -S 0.0.0.0:3001
+
+EXPOSE 3001
