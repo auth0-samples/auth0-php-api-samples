@@ -31,6 +31,14 @@ The sample includes these endpoints:
 **GET** /api/private/ping
 * A protected endpoint which returns a message on success. Requires a valid JWT access token.
 
+## Running the Example With Docker
+
+In order to run the example with [Docker](https://www.docker.com/) you need to have `docker` installed.
+
+You also need to set the enviroment variables as explained [previously](#setup-the-env-file).
+
+Execute in command line `sh exec.sh` to run the Docker in Linux, or `.\exec.ps1` to run the Docker in Windows.
+
 ## What is Auth0?
 
 Auth0 helps you to:
