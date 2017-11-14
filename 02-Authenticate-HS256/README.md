@@ -16,10 +16,10 @@ If you download this sample from the PHP API quickstart page, a `.env` file will
 
 ```bash
 composer install
-php -S localhost:3001
+php -S localhost:3010
 ```
 
-The API will be served at `http://localhost:3001`.
+The API will be served at `http://localhost:3010`.
 
 ## Endpoints
 
@@ -61,7 +61,7 @@ If you have found a bug or if you have a feature request, please report them at 
 
 ## Author
 
-[Auth0](auth0.com)
+[Auth0](https://auth0.com)
 
 ## License
 

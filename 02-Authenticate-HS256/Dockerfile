@@ -11,6 +11,6 @@ RUN php composer.phar --no-plugins --no-scripts install
 
 ADD . /home/app
 
-CMD php -S 0.0.0.0:3001
+CMD php -S 0.0.0.0:3010
 
-EXPOSE 3001
+EXPOSE 3010
