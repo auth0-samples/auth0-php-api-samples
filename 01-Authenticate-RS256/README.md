@@ -25,10 +25,10 @@ The API will be served at `http://localhost:3010`.
 
 The sample includes these endpoints:
 
-**GET** /api/public
+**GET** /api/public/ping
 * An unprotected endpoint which returns a message on success. Does not require a valid JWT access token.
 
-**GET** /api/private
+**GET** /api/private/ping
 * A protected endpoint which returns a message on success. Requires a valid JWT access token.
 
 ## Running the Example With Docker
