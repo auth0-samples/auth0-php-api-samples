@@ -1,6 +1,6 @@
 # PHP Authentication for HS256-Signed Tokens
 
-This sample demonstrates how to protect endpoints in a PHP API by verifing an incoming JWT signed by Auth0. The token must be signed with the HS256 algorithm and must be verified against the signing secret. 
+This sample demonstrates how to protect endpoints in a PHP API by verifying an incoming JWT signed by Auth0. The token must be signed with the HS256 algorithm and must be verified against the signing secret.
 
 ## Getting Started
 
@@ -25,17 +25,20 @@ The API will be served at `http://localhost:3010`.
 
 The sample includes these endpoints:
 
-**GET** /api/public/ping
+**GET** /api/public
 * An unprotected endpoint which returns a message on success. Does not require a valid JWT access token.
 
-**GET** /api/private/ping
+**GET** /api/private
 * A protected endpoint which returns a message on success. Requires a valid JWT access token.
+
+**GET** /api/private-scoped
+* A protected endpoint which returns a message on success. Requires a valid JWT access token and a scope of read:messages.
 
 ## Running the Example With Docker
 
 In order to run the example with [Docker](https://www.docker.com/) you need to have `docker` installed.
 
-You also need to set the enviroment variables as explained [previously](#setup-the-env-file).
+You also need to set the environment variables as explained [previously](#setup-the-env-file).
 
 Execute in command line `sh exec.sh` to run the Docker in Linux, or `.\exec.ps1` to run the Docker in Windows.
 

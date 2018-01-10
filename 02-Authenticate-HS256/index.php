@@ -2,7 +2,7 @@
   // In case one is using PHP 5.4's built-in server
   $filename = __DIR__ . preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
   if (php_sapi_name() === 'cli-server' && is_file($filename)) {
-      return false;
+    return false;
   }
 
   if( !function_exists('apache_request_headers') ) {
@@ -58,22 +58,24 @@
 
   sendCorsHeaders();
 
-  // Check JWT on /secured routes
-  $router->before('GET', '/api/private/.*', function() use ($app) {
+  // Check JWT on private routes
+  $router->before('GET', '/api/private.*', function() use ($app) {
 
     $requestHeaders = apache_request_headers();
 
     if (!isset($requestHeaders['authorization']) && !isset($requestHeaders['Authorization'])) {
-        header('HTTP/1.0 401 Unauthorized');
-        echo "No token provided.";
-        exit();
+      header('HTTP/1.0 401 Unauthorized');
+      header('Content-Type: application/json; charset=utf-8');
+      echo json_encode(array("message" => "No token provided."));
+      exit();
     }
 
     $authorizationHeader = isset($requestHeaders['authorization']) ? $requestHeaders['authorization'] : $requestHeaders['Authorization'];
 
     if ($authorizationHeader == null) {
       header('HTTP/1.0 401 Unauthorized');
-      echo "No authorization header sent";
+      header('Content-Type: application/json; charset=utf-8');
+      echo json_encode(array("message" => "No authorization header sent."));
       exit();
     }
 
@@ -81,27 +83,46 @@
     $token = str_replace('Bearer ', '', $authorizationHeader);
 
     try {
-        $app->setCurrentToken($token);
+      $app->setCurrentToken($token);
     }
     catch(\Auth0\SDK\Exception\CoreException $e) {
       header('HTTP/1.0 401 Unauthorized');
-      echo $e;
+      header('Content-Type: application/json; charset=utf-8');
+      echo json_encode(array("message" => $e->getMessage()));
       exit();
     }
 
   });
 
-  $router->get('/api/public/ping', function() use ($app){
-      echo json_encode($app->publicPing());
+  // Check for read:messages scope
+  $router->before('GET', '/api/private-scoped', function() use ($app) {
+    if (!$app->checkScope('read:messages')){
+      header('HTTP/1.0 403 forbidden');
+      header('Content-Type: application/json; charset=utf-8');
+      echo json_encode(array("message" => "Insufficient scope."));
+      exit();
+    }
   });
 
-  $router->get('/api/private/ping', function() use ($app){
-      echo json_encode($app->privatePing());
+  $router->get('/api/public', function() use ($app){
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode($app->publicEndpoint());
+  });
+
+  $router->get('/api/private', function() use ($app){
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode($app->privateEndpoint());
+  });
+
+  $router->get('/api/private-scoped', function() use ($app){
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode($app->privateScopedEndpoint());
   });
 
   $router->set404(function() {
     header('HTTP/1.1 404 Not Found');
-    echo "Page not found";
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(array("message" => "Page not found."));
   });
 
   // Run the Router
