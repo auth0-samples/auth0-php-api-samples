@@ -1,6 +1,6 @@
 # Auth0 PHP API Samples
 
-These samples demonstrate how to create an API with PHP which authenticates incoming requests. The request authenitcation is done by verifying the signature and claims in a JSON Web Token (JWT) signed by Auth0.
+These samples demonstrate how to create an API with PHP which authenticates incoming requests. The request authentication is done by verifying the signature and claims in a JSON Web Token (JWT) signed by Auth0.
 
 These samples do not demonstrate how to sign a JWT but rather assume that a user has already been authenticated by Auth0 and holds an access token for API access. For information on how to use Auth0 to authenticate users, see [the docs](https://auth0.com/docs).
 
@@ -26,7 +26,7 @@ If you have found a bug or if you have a feature request, please report them at 
 
 ## Author
 
-[Auth0](auth0.com)
+[Auth0](https://auth0.com)
 
 ## License
 
