@@ -15,7 +15,7 @@ jobs:
               echo "API_IDENTIFIER=$api_identifier" >> .env
  
       - run: 
-           name: background server
+           name: Background server
            command: sh exec.sh
            background: true
            
@@ -31,7 +31,7 @@ jobs:
           command: git clone https://github.com/auth0-samples/api-quickstarts-tests test
           
       - run: 
-          name: Prepare environment variables for test
+          name: Prepare environment variables for testing
           command: |
             cd test
             echo "AUTH0_DOMAIN=$auth0_domain" >> .env
@@ -51,7 +51,7 @@ jobs:
           command: cd test && npm install 
 
       - run:
-          name: Test
+          name: Run Tests
           command: cd test && npm test
 workflows:
   version: 2
