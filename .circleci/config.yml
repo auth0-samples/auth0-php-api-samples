@@ -16,7 +16,6 @@ defaults: &defaults
                 sed -i 's|{API_IDENTIFIER}|'$api_identifierhs256'|g' .env
                 sed -i 's|{CLIENT_SECRET}|'$api_secret'|g' .env
             fi
-            head .env
       - run:
           name: Background Server
           command: cd $AUTH0_CFG && sh exec.sh
@@ -32,7 +31,12 @@ defaults: &defaults
           command: |
             cd test
             echo "AUTH0_DOMAIN=$auth0_domain" >> .env
-            echo "API_IDENTIFIER=$api_identifier" >> .env
+            if [[ $AUTH0_CFG = *"RS256"* ]];
+            then
+                echo "API_IDENTIFIER=$api_identifier" >> .env
+            else
+                echo "API_IDENTIFIER=$api_identifierhs256" >> .env
+            fi
             echo "AUTH0_CLIENT_ID_1=$client_id_scopes_none" >> .env
             echo "AUTH0_CLIENT_SECRET_1=$client_secret_scopes_none" >> .env
             echo "AUTH0_CLIENT_ID_2=$client_id_scopes_read" >> .env
