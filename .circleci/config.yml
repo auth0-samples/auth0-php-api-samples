@@ -61,7 +61,7 @@ jobs:
       - AUTH0_CFG: 01-Authenticate-RS256
       - SAMPLE_PATH: 01-Authenticate-RS256
     <<: *defaults
-  02-Authorization-HS256:
+  02-Authenticate-HS256:
     machine: true
     environment:
       - AUTH0_CFG: 02-Authenticate-HS256
