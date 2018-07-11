@@ -16,7 +16,6 @@ defaults: &defaults
                 sed -i 's|{API_IDENTIFIER}|'$api_identifierhs256'|g' .env
                 sed -i 's|{CLIENT_SECRET}|'$api_secret'|g' .env
             fi
-            head .env
       - run:
           name: Background Server
           command: cd $AUTH0_CFG && sh exec.sh
