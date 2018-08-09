@@ -1,11 +1,10 @@
-# Common Logic
 defaults: &defaults
     steps:
       - attach_workspace:
           at: ~/
       - run:
           name: Prepare environment variables
-          command: | 
+          command: |   
             cd $AUTH0_CFG
             mv .env.example .env
             sed -i 's|{DOMAIN}|'$auth0_domain'|g' .env            
