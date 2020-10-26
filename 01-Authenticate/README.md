@@ -8,7 +8,7 @@ The token must be signed with either the RS256 or HS256 algorithms and must be v
 
 If you haven't already done so, [sign up](https://auth0.com) for your free Auth0 account and create a new API in the [dashboard](https://manage.auth0.com).
 
-Clone the repo or download it from the PHP API quickstart page in Auth0's documentation.
+Clone the repo or download it from the [PHP API quickstart page in Auth0's documentation](https://auth0.com/docs/quickstart/backend/php/01-authorization).
 
 ## Setup the `.env` File
 
