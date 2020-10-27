@@ -2,7 +2,7 @@
 
 This sample demonstrates how to protect endpoints in a PHP API by verifying an incoming JWT signed by Auth0.
 
-The token must be signed with either the RS256 or HS256 algorithms and must be verified against your Auth0 JSON Web Key Set.
+The token must be signed with either the RS256 or HS256 algorithms. In the case of RS256, these must be verified against your Auth0 JSON Web Key Set.
 
 ## Getting Started
 
