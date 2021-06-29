@@ -13,7 +13,7 @@ For demonstration purposes, this Quickstart includes the [auth0-spa-js](https://
 
 ### Create an Auth0 Application
 
-You will need to create a Regular Web Application using the [Auth0 Dashboard](https://manage.auth0.com). This will give you a Domain, Client ID, and Client Secret you will need below.
+You will need to create a Single Page Application using the [Auth0 Dashboard](https://manage.auth0.com). This will give you a Domain, Client ID, and Client Secret you will need below.
 
 ### Configure Credentials
 
@@ -22,7 +22,7 @@ Your project needs to be configured with your Auth0 Domain, Client ID, and Clien
 Copy .env.example into a new file in the same folder called .env, and replace the values with your Auth0 application credentials:
 
 ```sh
-# Your Auth0 application's Client ID
+# Your Auth0 Application's Client ID
 AUTH0_CLIENT_ID={CLIENT_ID}
 
 # The URL of your Auth0 tenant domain
@@ -51,7 +51,7 @@ Your Quickstart should now be accessible at [http://127.0.0.1:3000/](http://127.
 
 ## Running with Docker
 
-Before starting, make sure you have [Docker](https://docs.docker.com/get-docker/) installed.
+Before continuing, make sure you have [Docker](https://docs.docker.com/get-docker/) installed. This is required.
 
 Next, use the following command to install the necessary dependencies and start the sample within a Docker container:
 
