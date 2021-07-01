@@ -128,39 +128,35 @@
                 redirect_uri: '<?php echo $router->getUri('/', ''); ?>',
                 scope: '<?php echo $config->buildScopeString() ?>'
             }).then(auth0 => {
+                var hasAuthParams = window.location.href.indexOf('code=') !== -1 && window.location.href.indexOf('state=') !== -1;
+
                 document.getElementById('login').addEventListener('click', () => {
                     auth0.loginWithRedirect().catch(() => {});
                 });
 
                 document.getElementById('logout').addEventListener('click', () => {
-                    auth0.logout();
+                    auth0.logout({ returnTo: '<?php echo $router->getUri('/', ''); ?>' });
                 });
 
                 auth0.getUser().then(user => {
                     if (user) {
-                        auth0.getUser().then(user => {
-                            setAppState(true, user);
-
-                            // Issue a request to our quickstart backend api at /api
-                            callBackendApi(auth0);
-                        });
-
+                        setAppState(true, user);
+                        callBackendApi(auth0);
                         return;
-                    }
-
-                    auth0.handleRedirectCallback().then(redirectResult => {
-                        console.log(redirectResult);
-
-                        auth0.getUser().then(user => {
-                            setAppState(true, user);
-
-                            // Issue a request to our quickstart backend api at /api
-                            callBackendApi(auth0);
+                    } else if (hasAuthParams) {
+                        auth0.handleRedirectCallback().then(redirectResult => {
+                            auth0.getUser().then(user => {
+                                setAppState(true, user);
+                                callBackendApi(auth0);
+                            });
+                        }).catch(() => {
+                            setAppState(false);
+                            callBackendApi();
                         });
-                    }).catch(() => {
+                    } else {
                         setAppState(false);
                         callBackendApi();
-                    });
+                    }
                 });
             });
 
@@ -202,29 +198,19 @@
                 login.classList.remove('hidden');
             }
 
-            function callBackendApi(auth0) {
-                if (auth0) {
-                    auth0
-                    .getTokenSilently()
-                    .then(accessToken =>
-                        fetch('/api', {
-                            method: 'GET',
-                            headers: {
-                                Authorization: `Bearer ${accessToken}`
-                            }
-                        })
-                    )
-                    .then(response => response.json())
-                    .then(response => {
-                        document.getElementById('backendApiResponse').value = JSON.stringify(response, undefined, 4);
-                    });
+            async function callBackendApi(auth0) {
+                var accessToken = auth0 ? await auth0.getTokenSilently() : false;
+                var headers = {};
 
-                    return;
+                if (accessToken) {
+                    headers.Authorization = `Bearer ${accessToken}`;
                 }
 
-                fetch('/api', {
-                    method: 'GET'
-                }).then(response => response.json())
+                return await fetch('/api', {
+                    method: 'GET',
+                    headers: headers
+                })
+                .then(response => response.json())
                 .then(response => {
                     document.getElementById('backendApiResponse').value = JSON.stringify(response, undefined, 4);
                 });
