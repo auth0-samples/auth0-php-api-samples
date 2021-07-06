@@ -1,0 +1,5 @@
+.env
+vendor/
+node_modules/
+cache/
+package-lock.json
