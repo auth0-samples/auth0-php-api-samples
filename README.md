@@ -1,6 +1,7 @@
 # Auth0 PHP API Samples
 
-[![CircleCI](https://img.shields.io/circleci/project/github/auth0-samples/auth0-php-api-samples.svg?style=flat-square)](https://circleci.com/gh/auth0-samples/auth0-php-api-samples/tree/master)
+> This branch contains a sample application for the stable (7.x) branch of the PHP SDK.
+> For the new 8.x Beta quickstart, please [visit this branch](https://github.com/auth0-samples/auth0-php-api-samples/tree/8.x).
 
 These samples demonstrate how to create an API with PHP which authenticates incoming requests. The request authentication is done by verifying the signature and claims in a JSON Web Token (JWT) signed by Auth0.
 
