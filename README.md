@@ -1,6 +1,6 @@
 # Auth0 + PHP Backend API Sample
 
-This Quickstart demonstrates how to create an API that authenticates incoming requests with [PHP](http://php.net/) using JWTs signed by [Auth0](https://auth0.com). For a complete understanding of this Quickstart, please follow along with the [documentation](https://auth0.com/docs/quickstart/backend/php-beta).
+This Quickstart demonstrates how to create an API that authenticates incoming requests with [PHP](http://php.net/) using JWTs signed by [Auth0](https://auth0.com). For a complete understanding of this Quickstart, please follow along with the [documentation](https://auth0.com/docs/quickstart/backend/php).
 
 For demonstration purposes, this Quickstart includes the [auth0-spa-js](https://github.com/auth0/auth0-spa-js) library to authenticate end users from a mockup frontend, and passes the resulting access token to a custom PHP API backend to authorize endpoints. You are not required to use this or any particular frontend library, it's merely a useful example of a common use case.
 
