@@ -1,9 +1,0 @@
-{
-    "devDependencies": {
-        "@prettier/plugin-php": "^0.15",
-        "prettier": "^2.0"
-    },
-    "scripts": {
-        "format:php": "prettier --parser=php --write"
-    }
-}
