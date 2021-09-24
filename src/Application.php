@@ -80,8 +80,8 @@ final class Application
             domain: $env['AUTH0_DOMAIN'] ?? null,
             clientId: $env['AUTH0_CLIENT_ID'] ?? null,
             clientSecret: $env['AUTH0_CLIENT_SECRET'] ?? null,
-            audience: isset($env['AUTH0_AUDIENCE']) ? [trim($env['AUTH0_AUDIENCE'])] : null,
-            organization: isset($env['AUTH0_ORGANIZATION']) ? [trim($env['AUTH0_ORGANIZATION'])] : null,
+            audience: $env['AUTH0_AUDIENCE'] ?? false ? [trim($env['AUTH0_AUDIENCE'])] : null,
+            organization: $env['AUTH0_ORGANIZATION'] ?? false ? [trim($env['AUTH0_ORGANIZATION'])] : null,
         );
 
         // Setup the Auth0 SDK.
