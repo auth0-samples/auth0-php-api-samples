@@ -79,18 +79,10 @@ final class Application
         $this->configuration = new SdkConfiguration(
             domain: $env['AUTH0_DOMAIN'] ?? null,
             clientId: $env['AUTH0_CLIENT_ID'] ?? null,
-            clientSecret: $env['AUTH0_CLIENT_SECRET'] ?? null
+            clientSecret: $env['AUTH0_CLIENT_SECRET'] ?? null,
+            audience: ($env['AUTH0_AUDIENCE'] ?? null) !== null ? [trim($env['AUTH0_AUDIENCE'])] : null,
+            organization: ($env['AUTH0_ORGANIZATION'] ?? null) !== null ? [trim($env['AUTH0_ORGANIZATION'])] : null,
         );
-
-        // Configure an additional Audience (API identifier) if setup in the .env
-        if (array_key_exists('AUTH0_AUDIENCE', $env)) {
-            $this->configuration->pushAudience([$env['AUTH0_AUDIENCE'], $env['AUTH0_CLIENT_ID']]);
-        }
-
-        // Configure an Organization, if setup in the .env
-        if (array_key_exists('AUTH0_ORGANIZATION', $env)) {
-            $this->configuration->pushOrganization($env['AUTH0_ORGANIZATION']);
-        }
 
         // Setup the Auth0 SDK.
         $this->sdk = new Auth0($this->configuration);
@@ -211,6 +203,9 @@ final class Application
             $token = substr($token, 7);
         }
 
-        return $this->getSdk()->decode(token: $token);
+        return $this->getSdk()->decode(
+            token: $token,
+            tokenType: \Auth0\SDK\Token::TYPE_TOKEN
+        );
     }
 }

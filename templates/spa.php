@@ -124,9 +124,9 @@
             createAuth0Client({
                 domain: '<?php echo $config->getDomain(); ?>',
                 client_id: '<?php echo $config->getClientId(); ?>',
-                audience: '<?php echo $config->buildDefaultAudience(); ?>',
+                audience: '<?php echo $config->defaultAudience(); ?>',
                 redirect_uri: '<?php echo $router->getUri('/', ''); ?>',
-                scope: '<?php echo $config->buildScopeString() ?>'
+                scope: '<?php echo $config->formatScope() ?>'
             }).then(auth0 => {
                 var hasAuthParams = window.location.href.indexOf('code=') !== -1 && window.location.href.indexOf('state=') !== -1;
 
