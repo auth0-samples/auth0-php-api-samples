@@ -76,13 +76,13 @@ final class Application
         array $env
     ): void {
         // Build our SdkConfiguration.
-        $this->configuration = new SdkConfiguration(
-            domain: $env['AUTH0_DOMAIN'] ?? null,
-            clientId: $env['AUTH0_CLIENT_ID'] ?? null,
-            clientSecret: $env['AUTH0_CLIENT_SECRET'] ?? null,
-            audience: ($env['AUTH0_AUDIENCE'] ?? null) !== null ? [trim($env['AUTH0_AUDIENCE'])] : null,
-            organization: ($env['AUTH0_ORGANIZATION'] ?? null) !== null ? [trim($env['AUTH0_ORGANIZATION'])] : null,
-        );
+        $this->configuration = new SdkConfiguration([
+            'domain' => $env['AUTH0_DOMAIN'] ?? null,
+            'clientId' => $env['AUTH0_CLIENT_ID'] ?? null,
+            'clientSecret' => $env['AUTH0_CLIENT_SECRET'] ?? null,
+            'audience' => ($env['AUTH0_AUDIENCE'] ?? null) !== null ? [trim($env['AUTH0_AUDIENCE'])] : null,
+            'organization' => ($env['AUTH0_ORGANIZATION'] ?? null) !== null ? [trim($env['AUTH0_ORGANIZATION'])] : null,
+        ]);
 
         // Setup the Auth0 SDK.
         $this->sdk = new Auth0($this->configuration);
@@ -147,11 +147,10 @@ final class Application
         ApplicationRouter $router
     ): void {
         // Send response to browser.
-        $this->templates->render(
-            template: 'spa',
-            config: $this->getConfiguration(),
-            router: $router
-        );
+        $this->templates->render('spa', [
+            'config' => $this->getConfiguration(),
+            'router' => $router,
+        ]);
     }
 
     /**
@@ -163,11 +162,10 @@ final class Application
         $session = $this->getToken();
 
         // Send response to browser.
-        $this->templates->render(
-            template: 'logged-' . ($session === null ? 'out' : 'in'),
-            session: $session,
-            router: $router
-        );
+        $this->templates->render('logged-' . ($session === null ? 'out' : 'in'), [
+            'session' => $session,
+            'router' => $router,
+        ]);
     }
 
     /**
@@ -203,9 +201,6 @@ final class Application
             $token = substr($token, 7);
         }
 
-        return $this->getSdk()->decode(
-            token: $token,
-            tokenType: \Auth0\SDK\Token::TYPE_TOKEN
-        );
+        return $this->getSdk()->decode($token, null, null, null, null, null, null, \Auth0\SDK\Token::TYPE_TOKEN);
     }
 }
