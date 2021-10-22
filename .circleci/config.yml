@@ -57,6 +57,7 @@ jobs:
   php_7_4:
     docker:
       - image: circleci/php:7.4
+    working_directory: /app
     steps:
       - prepare
       - run-phpinsights
@@ -65,6 +66,7 @@ jobs:
   php_8_0:
     docker:
       - image: circleci/php:8.0
+    working_directory: /app
     steps:
       - prepare
       - run-phpinsights
@@ -73,6 +75,7 @@ jobs:
   snyk:
     docker:
       - image: snyk/snyk-cli:composer
+    working_directory: /app
     steps:
       - attach_workspace:
           at: .
