@@ -79,7 +79,6 @@ final class ApplicationTemplates
         extract($variables);
 
         if (file_exists($templatePath) === false) {
-            // @phpstan-ignore-next-line
             throw new \Exception("Template file not found: ${template}");
         }
 

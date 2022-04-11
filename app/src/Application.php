@@ -184,7 +184,6 @@ final class Application
     private function getToken(): ?\Auth0\SDK\Contract\TokenInterface
     {
         // Look for token in ?token=... param, followed by an `HTTP_AUTHORIZATION` or `Authorization` header.
-        // @phpstan-ignore-next-line
         $token = $_GET['token'] ?? $_SERVER['HTTP_AUTHORIZATION'] ?? $_SERVER['Authorization'] ?? null;
 
         // If no token was present, abort processing.

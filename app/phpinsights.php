@@ -42,22 +42,14 @@ return [
     'config' => [
         \PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\DeprecatedFunctionsSniff::class => [
             'exclude' => [
-                'src/Token/Verifier.php',
             ],
         ],
         \SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff::class => [
             'exclude' => [
-                'src/API/Management.php',
-                'src/Configuration/SdkConfiguration.php',
-                'src/Configuration/SdkState.php',
-                'src/Store/SessionStore.php',
-                'src/Store/MemoryStore.php',
-                'src/Store/Psr6Store.php',
             ],
         ],
         \SlevomatCodingStandard\Sniffs\Classes\ModernClassNameReferenceSniff::class => [
             'exclude' => [
-                'src/Mixins/ConfigurableMixin.php',
             ],
         ],
         \SlevomatCodingStandard\Sniffs\Classes\RequireMultiLineMethodSignatureSniff::class => [
