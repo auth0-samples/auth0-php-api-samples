@@ -47,9 +47,12 @@ return [
         ],
         \SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff::class => [
             'exclude' => [
+                'src/API/Management.php',
                 'src/Configuration/SdkConfiguration.php',
                 'src/Configuration/SdkState.php',
-                'src/API/Management.php',
+                'src/Store/SessionStore.php',
+                'src/Store/MemoryStore.php',
+                'src/Store/Psr6Store.php',
             ],
         ],
         \SlevomatCodingStandard\Sniffs\Classes\ModernClassNameReferenceSniff::class => [
@@ -60,5 +63,13 @@ return [
         \SlevomatCodingStandard\Sniffs\Classes\RequireMultiLineMethodSignatureSniff::class => [
             'minLineLength' => '0',
         ],
+    ],
+
+    'requirements' => [
+        'min-quality' => 90,
+        'min-complexity' => 50,
+        'min-architecture' => 90,
+        'min-style' => 90,
+        'disable-security-check' => false,
     ],
 ];
