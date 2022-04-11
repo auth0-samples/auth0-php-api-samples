@@ -8,7 +8,6 @@ use Auth0\Quickstart\Contract\QuickstartExample;
 use Auth0\SDK\Auth0;
 use Auth0\SDK\Configuration\SdkConfiguration;
 use Auth0\SDK\Exception\InvalidTokenException;
-use Auth0\SDK\Token;
 
 final class Application
 {
@@ -182,7 +181,7 @@ final class Application
      *
      * @throws InvalidTokenException When an invalid token is provided.
      */
-    private function getToken(): ?Token
+    private function getToken(): ?\Auth0\SDK\Contract\TokenInterface
     {
         // Look for token in ?token=... param, followed by an `HTTP_AUTHORIZATION` or `Authorization` header.
         // @phpstan-ignore-next-line
