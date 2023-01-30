@@ -5,7 +5,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link href="//unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-        <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
+        <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
 
         <title>Auth0 PHP Quickstart for Backend APIs</title>
 
@@ -121,33 +121,39 @@
         </main>
 
         <script>
-            createAuth0Client({
+            auth0.createAuth0Client({
                 domain: '<?php echo $config->getDomain(); ?>',
-                client_id: '<?php echo $config->getClientId(); ?>',
-                audience: '<?php echo $config->defaultAudience(); ?>',
-                redirect_uri: '<?php echo $router->getUri('/', ''); ?>',
-                scope: '<?php echo $config->formatScope() ?>'
-            }).then(auth0 => {
+                clientId: '<?php echo $config->getClientId(); ?>',
+                authorizationParams: {
+                    audience: '<?php echo $config->defaultAudience(); ?>',
+                    redirect_uri: '<?php echo $router->getUri('/', ''); ?>',
+                    scope: '<?php echo $config->formatScope() ?>'
+                }
+            }).then(auth0Instance => {
                 var hasAuthParams = window.location.href.indexOf('code=') !== -1 && window.location.href.indexOf('state=') !== -1;
 
                 document.getElementById('login').addEventListener('click', () => {
-                    auth0.loginWithRedirect().catch(() => {});
+                    auth0Instance.loginWithRedirect().catch(() => {});
                 });
 
                 document.getElementById('logout').addEventListener('click', () => {
-                    auth0.logout({ returnTo: '<?php echo $router->getUri('/', ''); ?>' });
+                    auth0Instance.logout({
+                        logoutParams: {
+                            returnTo: '<?php echo $router->getUri('/', ''); ?>'
+                        }
+                    });
                 });
 
-                auth0.getUser().then(user => {
+                auth0Instance.getUser().then(user => {
                     if (user) {
                         setAppState(true, user);
-                        callBackendApi(auth0);
+                        callBackendApi(auth0Instance);
                         return;
                     } else if (hasAuthParams) {
-                        auth0.handleRedirectCallback().then(redirectResult => {
-                            auth0.getUser().then(user => {
+                        auth0Instance.handleRedirectCallback().then(redirectResult => {
+                            auth0Instance.getUser().then(user => {
                                 setAppState(true, user);
-                                callBackendApi(auth0);
+                                callBackendApi(auth0Instance);
                             });
                         }).catch(() => {
                             setAppState(false);
@@ -198,8 +204,8 @@
                 login.classList.remove('hidden');
             }
 
-            async function callBackendApi(auth0) {
-                var accessToken = auth0 ? await auth0.getTokenSilently() : false;
+            async function callBackendApi(auth0Instance) {
+                var accessToken = auth0Instance ? await auth0Instance.getTokenSilently() : false;
                 var headers = {};
 
                 if (accessToken) {
