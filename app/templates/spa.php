@@ -127,7 +127,7 @@
                 authorizationParams: {
                     audience: '<?php echo $config->defaultAudience(); ?>',
                     redirect_uri: '<?php echo $router->getUri('/', ''); ?>',
-                    scope: '<?php echo $config->formatScope() ?>'
+                    scope: '<?php echo $config->formatScope(); ?>'
                 }
             }).then(auth0Instance => {
                 var hasAuthParams = window.location.href.indexOf('code=') !== -1 && window.location.href.indexOf('state=') !== -1;
