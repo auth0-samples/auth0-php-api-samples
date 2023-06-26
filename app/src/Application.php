@@ -81,6 +81,7 @@ final class Application
             'clientSecret' => $env['AUTH0_CLIENT_SECRET'] ?? null,
             'audience' => ($env['AUTH0_AUDIENCE'] ?? null) !== null ? [trim($env['AUTH0_AUDIENCE'])] : null,
             'organization' => ($env['AUTH0_ORGANIZATION'] ?? null) !== null ? [trim($env['AUTH0_ORGANIZATION'])] : null,
+            'strategy' => SdkConfiguration::STRATEGY_API,
         ]);
 
         // Setup the Auth0 SDK.
