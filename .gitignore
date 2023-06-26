@@ -2,3 +2,4 @@ vendor
 .env
 composer.lock
 .DS_Store
+app/.php-cs-fixer.cache
